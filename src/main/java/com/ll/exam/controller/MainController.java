@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -123,20 +125,38 @@ public class MainController {
         return "세션변수 %s의 값은 %s입니다".formatted(name, value);
     }
 
+
+    private List<Article> articles = new ArrayList<>();
+
+
     @GetMapping("/addArticle")
     @ResponseBody
     public String addArticle(String title, String body) { //req말고 session으로 바로 뺄수있음
 
         Article article = new Article(title, body);
+        articles.add(article);
 
         return "%d번 게시물이 생성되었습니다".formatted(article.getId());
     }
 
-    @AllArgsConstructor //모든 항목 생성자 alt+7 생성자 보기
-    class Article {
-        private static int lastId=0;
+    @GetMapping("/article/{id}")
+    @ResponseBody
+    public Article getArticles(@PathVariable int id) { //req말고 session으로 바로 뺄수있음
 
-        @Getter
+        Article article = articles //id가 1번이 게시물이 앞에서 3번째 있으면 3번만 실행
+                    .stream()
+                    .filter(a -> a.getId() == id)
+                    .findFirst() //찾은 것 중에 첫번째 것
+                    .get();
+
+        return article;
+    }
+
+    @AllArgsConstructor //모든 항목 생성자 alt+7 생성자 보기
+    @Getter
+    public class Article {
+
+        private static int lastId=0;
         private int id;
         private String title;
         private String body;
