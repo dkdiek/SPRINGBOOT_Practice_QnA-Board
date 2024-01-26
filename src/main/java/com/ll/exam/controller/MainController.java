@@ -214,4 +214,27 @@ public class MainController {
         }
     }
 
+
+    @GetMapping("/addPersonOldWay")
+    @ResponseBody
+    public Person addPersonOldWay(int id, int age, String name) {
+        Person p = new Person(id, age, name);
+        return p;
+    }
+
+    @GetMapping("/addPerson") //위에 것이랑 똑같음 param으로 값 넣어주면 된다
+    @ResponseBody
+    public Person addPerson(Person p) {
+        return p;
+    }
+
+    @AllArgsConstructor
+    @Getter
+    @Setter
+    class Person{
+        private int id;
+        private int age;
+        private String name;
+    }
+
 }
