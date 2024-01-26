@@ -221,7 +221,8 @@ public class MainController {
         Person p = new Person(id, age, name);
         return p;
     }
-
+    
+    //액션 메서드
     @GetMapping("/addPerson/{id}") //위에 것이랑 똑같음 param으로 값 넣어주면 된다 pathvariable이랑 get?같이 사용가능
     @ResponseBody
     public Person addPerson(Person p) {
