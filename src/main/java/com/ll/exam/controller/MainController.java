@@ -90,8 +90,8 @@ public class MainController {
     @GetMapping("/mbti/{name}") // ?말고 /로 받으려면 PathVariable 부트가능
     @ResponseBody
     public String showMbti(@PathVariable String name) {
-
-       return String rs = switch (name) {
+        String rs="";
+       return rs = switch (name) {
             case "홍길동" -> "INFP";
             case "홍길순" -> "ENFP";
             case "임꺽정" -> "INFJ";
