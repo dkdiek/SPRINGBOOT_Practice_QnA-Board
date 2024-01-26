@@ -222,7 +222,7 @@ public class MainController {
         return p;
     }
 
-    @GetMapping("/addPerson") //위에 것이랑 똑같음 param으로 값 넣어주면 된다
+    @GetMapping("/addPerson/{id}") //위에 것이랑 똑같음 param으로 값 넣어주면 된다 pathvariable이랑 get?같이 사용가능
     @ResponseBody
     public Person addPerson(Person p) {
         return p;
