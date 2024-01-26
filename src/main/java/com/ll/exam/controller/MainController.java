@@ -2,12 +2,14 @@ package com.ll.exam.controller;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.Setter;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -126,7 +128,12 @@ public class MainController {
     }
 
 
-    private List<Article> articles = new ArrayList<>();
+    private List<Article> articles = new ArrayList<>(
+            Arrays.asList(
+                    new Article("제목","내용"),
+                    new Article("제목","내용")
+            )
+    );
 
 
     @GetMapping("/addArticle")
@@ -152,8 +159,29 @@ public class MainController {
         return article;
     }
 
+    @GetMapping("/modifyArticle/{id}")
+    @ResponseBody
+    public String modifyArticle(@PathVariable int id, String title, String body) { //req말고 session으로 바로 뺄수있음
+
+        Article article = articles //id가 1번이 게시물이 앞에서 3번째 있으면 3번만 실행
+                    .stream()
+                    .filter(a -> a.getId() == id)
+                    .findFirst() //찾은 것 중에 첫번째 것
+                    .get();
+
+        if(article == null){
+            return "%d번 게시물은 존재하지 않습니다".formatted(id);
+        }
+
+        article.setTitle(title);
+        article.setBody(body);
+
+        return "%d번 게시물을 수정하였습니다".formatted(id);
+    }
+
     @AllArgsConstructor //모든 항목 생성자 alt+7 생성자 보기
     @Getter
+    @Setter
     public class Article {
 
         private static int lastId=0;
