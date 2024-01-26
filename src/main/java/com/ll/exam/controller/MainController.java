@@ -179,6 +179,26 @@ public class MainController {
         return "%d번 게시물을 수정하였습니다".formatted(id);
     }
 
+    @GetMapping("/deleteArticle/{id}")
+    @ResponseBody
+    public String deleteArticle(@PathVariable int id, String title, String body) { //req말고 session으로 바로 뺄수있음
+
+        Article article = articles //id가 1번이 게시물이 앞에서 3번째 있으면 3번만 실행
+                .stream()
+                .filter(a -> a.getId() == id)
+                .findFirst() //찾은 것 중에 첫번째 것
+                .orElse(null); //못찾으면 null을 넣어줌 .get()은 오류남
+
+        if(article == null){
+            return "%d번 게시물은 존재하지 않습니다".formatted(id);
+        }
+
+        articles.remove(article);
+        
+
+        return "%d번 게시물을 삭제하였습니다".formatted(id);
+    }
+
     @AllArgsConstructor //모든 항목 생성자 alt+7 생성자 보기
     @Getter
     @Setter
