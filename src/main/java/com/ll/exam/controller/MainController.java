@@ -5,12 +5,16 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class MainController {
+
+    private int increaseNo = -1;
+
     @RequestMapping("/sbb")
     @ResponseBody
-    public String index(){
+    public String index() {
         System.out.println("성공");
         return "abc";
     }
+
     @GetMapping("/page1")
     @ResponseBody
     public String showGet() {
@@ -22,9 +26,10 @@ public class MainController {
                 </form>
                 """;
     }
+
     @GetMapping("/page2")
     @ResponseBody
-    public String showPageGet(@RequestParam(defaultValue = "0") int age){
+    public String showPageGet(@RequestParam(defaultValue = "0") int age) {
         return """
                 <h1>입력된 나이:%d</h1>
                 <h1>get방식으로 왔습니다</h1>
@@ -33,10 +38,25 @@ public class MainController {
 
     @PostMapping("/page2")
     @ResponseBody
-    public String showPagePost(@RequestParam(defaultValue = "0") int age){
+    public String showPagePost(@RequestParam(defaultValue = "0") int age) {
         return """
                 <h1>입력된 나이:%d</h1>
                 <h1>post방식으로 왔습니다</h1>
                 """.formatted(age);
     }
+
+    @GetMapping("/plus")
+    @ResponseBody
+    public int showPlus(int a, int b) {
+        return a + b;
+    }
+
+    @GetMapping("/increase")
+    @ResponseBody
+    public int increaseNumber() {
+        increaseNo++;
+        return increaseNo;
+    }
+
+
 }
