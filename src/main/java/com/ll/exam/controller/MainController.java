@@ -154,7 +154,7 @@ public class MainController {
                     .stream()
                     .filter(a -> a.getId() == id)
                     .findFirst() //찾은 것 중에 첫번째 것
-                    .get();
+                    .orElse(null); //못찾으면 null을 넣어줌 .get()은 오류남
 
         return article;
     }
@@ -167,7 +167,7 @@ public class MainController {
                     .stream()
                     .filter(a -> a.getId() == id)
                     .findFirst() //찾은 것 중에 첫번째 것
-                    .get();
+                    .orElse(null); //못찾으면 null을 넣어줌 .get()은 오류남
 
         if(article == null){
             return "%d번 게시물은 존재하지 않습니다".formatted(id);
