@@ -1,8 +1,11 @@
 package com.ll.exam.controller;
 
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -101,5 +104,38 @@ public class MainController {
 
     }
 
+    @GetMapping("/saveSession/{name}/{value}")
+    @ResponseBody
+    public String saveSession(@PathVariable String name, @PathVariable String value, HttpServletRequest req) {
+        HttpSession session = req.getSession();
+        session.setAttribute(name, value);
+
+        return "세션변수 %s의 값이 %s로 설정되었습니다".formatted(name, value);
+    }
+    @GetMapping("/getSession/{name}")
+    @ResponseBody
+    public String saveSession(@PathVariable String name, HttpSession session) { //req말고 session으로 바로 뺄수있음
+
+        //req => 쿠키생성 => JSESSIONID => 세션을 얻을수있다
+        String value= (String)session.getAttribute(name);
+
+        return "세션변수 %s의 값은 %s입니다".formatted(name, value);
+    }
+
+    @GetMapping("/addArticle")
+    @ResponseBody
+    public String addArticle(String title, String body) { //req말고 session으로 바로 뺄수있음
+        int id=1;
+        Article article = new Article(id, title, body);
+
+        return "%d번 게시물이 생성되었습니다".formatted(id);
+    }
+
+    @AllArgsConstructor //모든 항목 생성자 alt+7 생성자 보기
+    class Article {
+        private int id;
+        private String title;
+        private String body;
+    }
 
 }
