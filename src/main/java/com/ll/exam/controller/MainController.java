@@ -1,6 +1,7 @@
 package com.ll.exam.controller;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -125,17 +126,24 @@ public class MainController {
     @GetMapping("/addArticle")
     @ResponseBody
     public String addArticle(String title, String body) { //req말고 session으로 바로 뺄수있음
-        int id=1;
-        Article article = new Article(id, title, body);
 
-        return "%d번 게시물이 생성되었습니다".formatted(id);
+        Article article = new Article(title, body);
+
+        return "%d번 게시물이 생성되었습니다".formatted(article.getId());
     }
 
     @AllArgsConstructor //모든 항목 생성자 alt+7 생성자 보기
     class Article {
+        private static int lastId=0;
+
+        @Getter
         private int id;
         private String title;
         private String body;
+
+        public Article(String title, String body){
+            this(++lastId, title, body);
+        }
     }
 
 }
