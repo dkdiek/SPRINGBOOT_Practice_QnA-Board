@@ -54,6 +54,14 @@ public class MainController {
         return a + b;
     }
 
+//    @GetMapping("/plus2") 기존 서블릿 방식
+//    @ResponseBody
+//    public void showPlus2(HttpServletRequest req, HttpServletResponse res) throws IOException {
+//        int a = Integer.parseInt(req.getParameter("a"));
+//        int b = Integer.parseInt(req.getParameter("b"));
+//        res.getWriter().append(a+b+"");
+//    }
+
     @GetMapping("/increase")
     @ResponseBody
     public int increaseNumber() {
@@ -78,5 +86,19 @@ public class MainController {
                 .mapToObj(i -> "%d * %d = %d".formatted(finalDan, i, finalDan * i))
                 .collect(Collectors.joining("<br>"));//br기준으로 하나의 스트림으로 생성
     }
+
+    @GetMapping("/mbti/{name}") // ?말고 /로 받으려면 PathVariable 부트가능
+    @ResponseBody
+    public String showMbti(@PathVariable String name) {
+
+       return String rs = switch (name) {
+            case "홍길동" -> "INFP";
+            case "홍길순" -> "ENFP";
+            case "임꺽정" -> "INFJ";
+            default -> "모름";
+        };
+
+    }
+
 
 }
