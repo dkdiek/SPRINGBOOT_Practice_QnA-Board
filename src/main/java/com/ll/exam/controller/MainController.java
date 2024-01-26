@@ -3,6 +3,9 @@ package com.ll.exam.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
 @Controller
 public class MainController {
 
@@ -60,14 +63,20 @@ public class MainController {
 
     @GetMapping("/gugudan")
     @ResponseBody
-    public String showGugudan(int dan, int limit) {
-        String rs ="";
-
-        for(int i =1; i <= limit; i++){
-            rs += "%d * %d = %d<br>\n".formatted(dan, i, dan*i);
+    public String showGugudan(Integer dan, Integer limit) {
+        if (dan == null) {
+            dan = 9;
+        }
+        if (limit == null) {
+            limit = 9;
         }
 
-        return rs;
+        final Integer finalDan = dan;
+        //스트림 사용 시 외부 객체 형태 타입은 Final선언이 필요함
+
+        return IntStream.rangeClosed(1, limit)//stream 반복문
+                .mapToObj(i -> "%d * %d = %d".formatted(finalDan, i, finalDan * i))
+                .collect(Collectors.joining("<br>"));//br기준으로 하나의 스트림으로 생성
     }
 
 }
