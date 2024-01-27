@@ -22,5 +22,6 @@ public class Answer {
     private LocalDateTime createDate;
 
     @ManyToOne
+    @JoinColumn(foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT)) //answer에 question foriengkey를 안쓰게
     private Question question;
 }
