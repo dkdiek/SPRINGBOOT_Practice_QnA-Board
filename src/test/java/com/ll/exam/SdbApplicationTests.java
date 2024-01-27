@@ -48,4 +48,11 @@ class SdbApplicationTests {
         assertEquals("sbb가 무엇인가요?", q.getSubject());
     }
 
+
+    @Test
+    void testJpa3() {
+        Question q = questionRepository.findBySubject("dfd?");
+        System.out.println(q);
+    }
+
 }
