@@ -2,6 +2,7 @@ package com.ll.exam.controller;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -199,20 +200,7 @@ public class MainController {
         return "%d번 게시물을 삭제하였습니다".formatted(id);
     }
 
-    @AllArgsConstructor //모든 항목 생성자 alt+7 생성자 보기
-    @Getter
-    @Setter
-    public class Article {
 
-        private static int lastId=0;
-        private int id;
-        private String title;
-        private String body;
-
-        public Article(String title, String body){
-            this(++lastId, title, body);
-        }
-    }
 
 
     @GetMapping("/addPersonOldWay")
@@ -226,21 +214,39 @@ public class MainController {
     @GetMapping("/addPerson/{id}") //위에 것이랑 똑같음 param으로 값 넣어주면 된다 pathvariable이랑 get?같이 사용가능
     @ResponseBody
     public Person addPerson(Person p) {
+
         return p;
     }
+}
 
-    @AllArgsConstructor
-    @Getter
-    @Setter
-    class Person{
-        private int id;
-        private int age;
-        private String name;
 
-        public Person(int age, String name){
-            this.age=age;
-            this.name=name;
-        }
+
+@AllArgsConstructor //모든 항목 생성자 alt+7 생성자 보기
+@Getter
+@Setter
+class Article {
+
+    private static int lastId=0;
+    private int id;
+    private String title;
+    private String body;
+
+    public Article(String title, String body){
+        this(++lastId, title, body);
     }
+}
 
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+class Person{
+    private int id;
+    private int age;
+    private String name;
+
+    public Person(int age, String name){
+        this.age=age;
+        this.name=name;
+    }
 }
