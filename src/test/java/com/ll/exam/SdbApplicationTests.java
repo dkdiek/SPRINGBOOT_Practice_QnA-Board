@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 @SpringBootTest
@@ -17,6 +19,7 @@ class SdbApplicationTests {
     @Autowired
     private QuestionRepository questionRepository;
 
+    //insert
     @Test
     void testJpa() {
         Question q1 = new Question();
@@ -33,8 +36,16 @@ class SdbApplicationTests {
 
         assertThat(q1.getId()).isGreaterThan(0); //id가 최소 0보다 크다
         assertThat(q2.getId()).isGreaterThan(q1.getId()); // 1번째 아이디보다 크다
+    }
 
+    //select all
+    @Test
+    void testJpa2() {
+        List<Question> all = this.questionRepository.findAll();
+        assertEquals(2, all.size());
 
+        Question q = all.get(0);
+        assertEquals("sbb가 무엇인가요?", q.getSubject());
     }
 
 }
