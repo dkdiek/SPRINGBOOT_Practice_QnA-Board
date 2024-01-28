@@ -13,8 +13,20 @@ public interface QuestionRepository extends JpaRepository<Question, Integer> {
     Question findBySubjectAndContent(String subject, String content);
 
     List<Question> findBySubjectLike(String s);
+
+    //mariadb 쿼리 사용
     @Modifying
     @Transactional
-    @Query(value ="TRUNCATE question", nativeQuery = true) //mariadb 쿼리 사용
+    @Query(value ="TRUNCATE question", nativeQuery = true)
     void truncate();
+
+    @Modifying
+    @Transactional
+    @Query(value ="SET FOREIGN_KEY_CHECKS =0;", nativeQuery = true) //FK 사용 DISALBE
+    void disableForeignKeyChecks();
+
+    @Modifying
+    @Transactional
+    @Query(value ="SET FOREIGN_KEY_CHECKS =1;", nativeQuery = true) //FK 사용 ENABLE
+    void enableForeignKeyChecks();
 }

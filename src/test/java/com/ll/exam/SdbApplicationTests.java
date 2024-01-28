@@ -40,7 +40,9 @@ class SdbApplicationTests {
 
         System.out.println(q2.getId());
 
-        questionRepository.truncate();
+        questionRepository.disableForeignKeyChecks(); //truncate하기위해 fk 끈다
+        questionRepository.truncate(); //truncate한다
+        questionRepository.enableForeignKeyChecks(); //turncate끝나고 fk 다시 킨다
 
     } @Test
     void testJpa1() {
