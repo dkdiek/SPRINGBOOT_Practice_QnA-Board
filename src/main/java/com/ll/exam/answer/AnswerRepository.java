@@ -10,7 +10,7 @@ public interface AnswerRepository extends JpaRepository<Answer, Integer>, Reposi
 
     @Modifying
     @Transactional
-    @Query(value ="TRUNCATE answer", nativeQuery = true)
+    @Query(value ="ALTER TABLE answer AUTO_INCREMENT = 1", nativeQuery = true)
     void truncate(); // 지우면 안된다 truncateTable하면 자동으로 실행된다
 
 }
