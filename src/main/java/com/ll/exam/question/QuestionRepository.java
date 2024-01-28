@@ -1,5 +1,6 @@
 package com.ll.exam.question;
 
+import com.ll.exam.base.RepositoryUtil;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -7,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-public interface QuestionRepository extends JpaRepository<Question, Integer> {
+public interface QuestionRepository extends JpaRepository<Question, Integer>, RepositoryUtil {
     Question findBySubject(String subject);
     Question findByContent(String content);
     Question findBySubjectAndContent(String subject, String content);
@@ -20,13 +21,5 @@ public interface QuestionRepository extends JpaRepository<Question, Integer> {
     @Query(value ="TRUNCATE question", nativeQuery = true)
     void truncate();
 
-    @Modifying
-    @Transactional
-    @Query(value ="SET FOREIGN_KEY_CHECKS =0;", nativeQuery = true) //FK 사용 DISALBE
-    void disableForeignKeyChecks();
 
-    @Modifying
-    @Transactional
-    @Query(value ="SET FOREIGN_KEY_CHECKS =1;", nativeQuery = true) //FK 사용 ENABLE
-    void enableForeignKeyChecks();
 }
