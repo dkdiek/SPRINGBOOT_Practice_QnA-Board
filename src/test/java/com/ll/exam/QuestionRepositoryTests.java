@@ -14,7 +14,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 
 @SpringBootTest
-class QuestionApplicationTests {
+class QuestionRepositoryTests {
 
     @Autowired
     private QuestionRepository questionRepository;
@@ -24,6 +24,12 @@ class QuestionApplicationTests {
     void beforeEach(){
         clearData(); // 데이터 삭제
         createSampleData(); // 데이터 만들기
+    }
+
+    private void clearData() {
+        questionRepository.disableForeignKeyChecks();
+        questionRepository.truncate();
+        questionRepository.enableForeignKeyChecks();
     }
 
     private void createSampleData() {
@@ -42,11 +48,6 @@ class QuestionApplicationTests {
         lastSampleDataId = q2.getId();
     }
 
-    private void clearData() {
-        questionRepository.disableForeignKeyChecks();
-        questionRepository.truncate();
-        questionRepository.enableForeignKeyChecks();
-    }
 
     @Test
     void 저장() {
