@@ -47,9 +47,7 @@ class QuestionRepositoryTests {
     }
 
     public static void clearData(QuestionRepository questionRepository) {
-        questionRepository.disableForeignKeyChecks();
-        questionRepository.truncate();
-        questionRepository.enableForeignKeyChecks();
+        questionRepository.truncateTable();
     }
 
     private void clearData() {
@@ -108,7 +106,7 @@ class QuestionRepositoryTests {
 
     @Test
     void findBySubject() {
-        Question q = questionRepository.findByContent("sbb가 무엇인가요?");
+        Question q = questionRepository.findBySubject("sbb가 무엇인가요?");
         assertThat(q.getId()).isEqualTo(1);
     }
 
