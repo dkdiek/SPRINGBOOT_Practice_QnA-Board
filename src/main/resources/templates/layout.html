@@ -31,16 +31,20 @@
     <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
     <title>Q&A 서비스</title>
 </head>
-<body>
+<body style="min-height: 100vh" class="d-flex flex-column">
 <!-- 기본 템플릿 안에 삽입될 내용 Start -->
-<th:block layout:fragment="content"></th:block>
+<main class="flex-grow-1">
+    <th:block layout:fragment="content"></th:block>
+</main>
 <!-- 기본 템플릿 안에 삽입될 내용 End -->
 
-<footer class="container d-flex justify-content-center mt-5 footer">
-    Bootstrap 팀이 기여자 분들의 도움과 세상의 모든 사랑을 받아 디자인되고 빌드되었습니다.
-    @alexkoala, @jjulee, @hwang1588님이 한국어로 번역해주셨습니다.
-    코드 라이선스는 MIT이며 문서 라이선스는 CC BY 3.0입니다.
-    현재 v5.3.1입니다.
+<footer class="bg-dark text-light">
+    <div class="container d-flex justify-content-center py-3 footer">
+        Bootstrap 팀이 기여자 분들의 도움과 세상의 모든 사랑을 받아 디자인되고 빌드되었습니다.
+        @alexkoala, @jjulee, @hwang1588님이 한국어로 번역해주셨습니다.
+        코드 라이선스는 MIT이며 문서 라이선스는 CC BY 3.0입니다.
+        현재 v5.3.1입니다.
+    </div >
 </footer>
 
 </body>
