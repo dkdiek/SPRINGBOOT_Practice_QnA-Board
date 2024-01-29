@@ -1,0 +1,8 @@
+textarea {
+    width: 100%;
+}
+
+input[type=submit], /*태그가 input이고 type 속성이 submit인*/
+button[type=submit]{ /*태그가 button이고 type 속성이 submit인*/
+    margin-top: 10px;
+}
