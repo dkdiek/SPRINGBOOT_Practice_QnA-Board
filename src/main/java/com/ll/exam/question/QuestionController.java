@@ -31,7 +31,7 @@ public class QuestionController {
         return "question_list";
     }
 
-    @GetMapping(value = "/{id}")
+    @GetMapping(value = "/detail/{id}")
     public String detail(Model model, @PathVariable int id) {
         Question question = questionService.getQuestion(id);
 
