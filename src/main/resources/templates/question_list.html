@@ -5,7 +5,6 @@
         <title>QnaService</title>
     </head>
     <body>
-    <h1>Hello</h1>
         <table>
             <thead>
             <tr>
@@ -15,16 +14,18 @@
             </tr>
             </thead>
             <tbody>
-                <tr th:each="question, loop : ${questionList}">
+                <tr th:each="question, index : ${questionList}">
                     <td>
                         [[${question.id}]]
                     </td>
                     <td>
-                        [[${question.subject}]]
+                        <!--text사용 utext는 html반영됨-->
+                        <a th:href="@{|/question/detail/${question.id}|}" th:text="${question.subject}"></a>
+<!--                        <a th:href="@{|/question/detail/${question.id}|}">-->
+<!--                            [[${question.subject}]]-->
+<!--                        </a>-->
                     </td>
-                    <td>
-                        [[${#strings.substring(question.createDate, 0, 10)}]]
-                    </td>
+                    <td th:text="|Date. ${#strings.substring(question.createDate, 2, 16)}|"></td>
                 </tr>
             </tbody>
         </table>
