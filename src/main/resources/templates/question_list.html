@@ -23,7 +23,7 @@
                         [[${question.subject}]]
                     </td>
                     <td>
-                        [[${question.createDate}]]
+                        [[${#strings.substring(question.createDate, 0, 10)}]]
                     </td>
                 </tr>
             </tbody>
