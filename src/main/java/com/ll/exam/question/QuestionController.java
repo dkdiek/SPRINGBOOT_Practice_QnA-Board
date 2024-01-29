@@ -37,14 +37,25 @@ public class QuestionController {
         return "question_detail";
     }
 
-    @GetMapping(value = "/create")
-    public String questionCreate() {
+    @GetMapping("/create")
+    public String questionCreate(){
         return "question_form";
     }
 
     @PostMapping("/create")
-    public String questionCreate(String subject, String content) {
-        questionService.create(subject, content);
+    public String questionCreate(Model model, QuestionForm questionForm) {
+
+        if(questionForm.getSubject() == null || questionForm.getSubject().trim().length() == 0){
+            model.addAttribute("errorMsg","제목이 없습니다");
+            return "question_form";
+        }
+
+        if(questionForm.getContent() == null || questionForm.getContent().trim().length() == 0){
+            model.addAttribute("errorMsg","내용이 없습니다");
+            return "question_form";
+        }
+
+        questionService.create(questionForm.getSubject(), questionForm.getContent());
         return "redirect:/question/list"; // 질문 저장후 질문목록으로 이동
     }
 }
