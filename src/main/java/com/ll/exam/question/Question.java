@@ -5,6 +5,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data //Getter, Setter 붙인거랑 같다 toString까지 만들어짐
@@ -24,5 +25,5 @@ public class Question {
     private LocalDateTime createDate;
 
     @OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE) //Answer 테이블의 question 컬럼과 매핑, cascadetype 엔티티를 제거할 때, 연관된 하위 엔티티도 모두 제거한다. 질문이 삭제되면 해당 질문의 answer들도 삭제된다
-    private List<Answer> answerList;
+    private List<Answer> answerList = new ArrayList<>();
 }

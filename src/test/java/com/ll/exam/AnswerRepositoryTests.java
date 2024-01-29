@@ -47,14 +47,19 @@ public class AnswerRepositoryTests {
         a1.setContent("SBB는 질문답변 게시판입니다");
         a1.setQuestion(q);  // 어떤 질문의 답변인지 알기위해서 Question 객체가 필요하다.
         a1.setCreateDate(LocalDateTime.now());
-        answerRepository.save(a1); 
-        
+        answerRepository.save(a1);
+
+        q.getAnswerList().add(a1);
+
         Answer a2 = new Answer();
         a2.setContent("SBB에서는 주로 스프링관련 내용을 다룹니다");
         a2.setQuestion(q);  // 어떤 질문의 답변인지 알기위해서 Question 객체가 필요하다.
         a2.setCreateDate(LocalDateTime.now());
         answerRepository.save(a2);
 
+        q.getAnswerList().add(a2);
+
+        questionRepository.save(q);
     }
 
 
@@ -88,9 +93,6 @@ public class AnswerRepositoryTests {
         //SELECT * FROM question WHERE id=1;
         Question q = questionRepository.findById(1).get();
         //DB 연결이 끊김
-
-        questionRepository.findById(3);
-        questionRepository.findById(3);
 
         //SELECT * FROM answer WHERE question_id=1;
         List<Answer> answerList = q.getAnswerList();
