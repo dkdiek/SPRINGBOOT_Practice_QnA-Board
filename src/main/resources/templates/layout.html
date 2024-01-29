@@ -1,6 +1,23 @@
 <!doctype html>
 <html lang="ko">
 <head>
+    <header class="header">
+        <div class="container py-3 d-flex">
+            <a th:href="@{/}" class="logo">메인페이지</a>
+            <div class="flex-grow-1"></div>
+            <nav class="menu-1">
+                <ul class="d-flex gap-3">
+                    <li>
+                        <a th:href="@{/question/list}">질문 리스트</a>
+                    </li>
+                    <li>
+                        <a href="#">마이페이지</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -15,5 +32,13 @@
 <!-- 기본 템플릿 안에 삽입될 내용 Start -->
 <th:block layout:fragment="content"></th:block>
 <!-- 기본 템플릿 안에 삽입될 내용 End -->
+
+<footer class="container d-flex justify-content-center mt-5 footer">
+    Bootstrap 팀이 기여자 분들의 도움과 세상의 모든 사랑을 받아 디자인되고 빌드되었습니다.
+    @alexkoala, @jjulee, @hwang1588님이 한국어로 번역해주셨습니다.
+    코드 라이선스는 MIT이며 문서 라이선스는 CC BY 3.0입니다.
+    현재 v5.3.1입니다.
+</footer>
+
 </body>
 </html>
