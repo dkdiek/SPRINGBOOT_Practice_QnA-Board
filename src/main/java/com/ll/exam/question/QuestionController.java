@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
@@ -18,18 +19,19 @@ import java.util.List;
 //SPRING DATA JPA는 MySQL을 몰라야 한다.
 //SPRING DATA JPA(리포지터리) -> JPA ->하이버네이트 ->jdbc -> mysql driver -> mysql
 //단방향 하나를 건너 뛰고 처리하는건 안된다
+@RequestMapping("/question")
 public class QuestionController {
     //@AutoWired 필드 주입
     private final QuestionService questionService;
 
-    @GetMapping("/question/list")
+    @GetMapping("/list")
     public String list(Model model) {
         List<Question> questionList = questionService.getList();
         model.addAttribute("questionList",questionList);
         return "question_list";
     }
 
-    @GetMapping(value = "/question/detail/{id}")
+    @GetMapping(value = "/{id}")
     public String detail(Model model, @PathVariable int id) {
         Question question = questionService.getQuestion(id);
 
