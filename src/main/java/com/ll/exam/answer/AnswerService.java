@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 public class AnswerService {
     private final AnswerRepository answerRepository;
-    
+
     public void create(Question question, String content) {
 
             Answer answer = new Answer();
