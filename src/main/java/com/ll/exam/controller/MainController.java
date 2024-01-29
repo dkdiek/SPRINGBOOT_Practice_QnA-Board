@@ -217,6 +217,11 @@ public class MainController {
 
         return p;
     }
+
+    @GetMapping("/")
+    public String root() {
+        return "home_main";
+    }
 }
 
 
