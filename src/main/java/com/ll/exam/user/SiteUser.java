@@ -1,6 +1,7 @@
 package com.ll.exam.user;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -8,6 +9,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
+@NoArgsConstructor
 public class SiteUser { // 스프링 시큐리티에 User란 클래스가 이미 내장되어 있어서 구분하려고
 
     @Id
@@ -21,4 +23,8 @@ public class SiteUser { // 스프링 시큐리티에 User란 클래스가 이미
 
     @Column(unique = true)
     private String email;
+
+    public SiteUser(long id){
+        this.id = id;
+    }
 }
