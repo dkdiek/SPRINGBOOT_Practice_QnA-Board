@@ -20,6 +20,7 @@ public class MainController {
 
     private int increaseNo = -1;
 
+
     @RequestMapping("/sbb")
     @ResponseBody
     public String index() {
