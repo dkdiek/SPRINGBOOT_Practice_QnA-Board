@@ -14,7 +14,7 @@ public class Question {
 
     @Id //Primary key
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Auto increment
-    private Integer id;
+    private Long id;
 
     @Column(length = 200) //Varchar(200)
     private String subject;
