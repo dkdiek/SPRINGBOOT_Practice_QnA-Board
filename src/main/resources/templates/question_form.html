@@ -8,17 +8,19 @@
 
     <form th:action="@{/question/create}" th:object="${questionForm}" method="post">
 
+        <!--form안에써야한다-->
         <div class="alert alert-danger" role="alert" th:if="${#fields.hasAnyErrors()}">
             <div th:each="err : ${#fields.allErrors()}" th:text="${err}" />
         </div>
 
         <div class="mb-3">
             <label for="subject" class="form-label">제목</label>
-            <input th:field="*{subject}" type="text" name="subject" id="subject" class="form-control" placeholder="제목을 입력해 주세요" >
+            <!-- name이랑 id자동으로 생성해준다-->
+            <input th:field="*{subject}" type="text" class="form-control" placeholder="제목을 입력해 주세요" >
         </div>
         <div class="mb-3">
             <label for="content" class="form-label">내용</label>
-            <textarea name="content" id="content" class="form-control" rows="10" placeholder="내용을 입력해 주세요"  th:field="*{content}" ></textarea>
+            <textarea class="form-control" rows="10" placeholder="내용을 입력해 주세요"  th:field="*{content}" ></textarea>
         </div>
         <input type="submit" value="저장하기" class="btn btn-primary my-2">
     </form>
