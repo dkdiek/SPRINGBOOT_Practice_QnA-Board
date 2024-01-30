@@ -27,7 +27,10 @@ public class SecurityConfig {
                         .ignoringRequestMatchers(new AntPathRequestMatcher("/h2-console/**")))
                         .headers((headers) -> headers
                         .addHeaderWriter(new XFrameOptionsHeaderWriter(
-                                XFrameOptionsHeaderWriter.XFrameOptionsMode.SAMEORIGIN)));
+                                XFrameOptionsHeaderWriter.XFrameOptionsMode.SAMEORIGIN)))
+                        .formLogin((formLogin) -> formLogin
+                                .loginPage("/user/login") //시큐리티 로그인 폼을 이 url로 사용
+                                .defaultSuccessUrl("/")); //로그인 성공하고 나면 보낼 페이지
 
         return http.build();
     }
