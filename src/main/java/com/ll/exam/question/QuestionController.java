@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 @Controller
@@ -26,7 +27,10 @@ public class QuestionController {
     private final QuestionService questionService;
 
     @GetMapping("/list")
-    public String list(Model model, @RequestParam(defaultValue = "0") int page) {
+    public String list(HttpSession session, Model model, @RequestParam(defaultValue = "0") int page) {
+        Object o = session.getAttribute("SPRING_SECURITY_CONTEXT");
+        System.out.println(o);
+
         Page<Question> paging = questionService.getList(page);
         model.addAttribute("paging",paging);
         return "question_list";
