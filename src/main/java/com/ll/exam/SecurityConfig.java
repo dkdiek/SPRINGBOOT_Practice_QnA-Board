@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.header.writers.frameoptions.XFrameOptionsHeaderWriter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 
@@ -19,7 +20,13 @@ public class SecurityConfig {
                         .requestMatchers(new AntPathRequestMatcher("/**"))
                         // 허용 한다
                         .permitAll())
-        ;
+                        .csrf((csrf) -> csrf
+                        // 이 패턴으로 들어온 url은 체크하지 않겠다
+                        .ignoringRequestMatchers(new AntPathRequestMatcher("/h2-console/**")))
+                        .headers((headers) -> headers
+                        .addHeaderWriter(new XFrameOptionsHeaderWriter(
+                                XFrameOptionsHeaderWriter.XFrameOptionsMode.SAMEORIGIN)));
+
         return http.build();
     }
 
