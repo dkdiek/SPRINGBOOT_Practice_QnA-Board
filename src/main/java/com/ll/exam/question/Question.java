@@ -1,6 +1,7 @@
 package com.ll.exam.question;
 
 import com.ll.exam.answer.Answer;
+import com.ll.exam.user.SiteUser;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -14,7 +15,7 @@ public class Question {
 
     @Id //Primary key
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Auto increment
-    private Long id;
+    private int id;
 
     @Column(length = 200) //Varchar(200)
     private String subject;
@@ -26,6 +27,9 @@ public class Question {
 
     @OneToMany(mappedBy = "question", cascade = {CascadeType.ALL}) //Answer 테이블의 question 컬럼과 매핑, cascadetype 엔티티를 제거할 때, 연관된 하위 엔티티도 모두 제거한다. 질문이 삭제되면 해당 질문의 answer들도 삭제된다
     private List<Answer> answerList = new ArrayList<>();
+
+    @ManyToOne //질문 여러개 to 유저 1명
+    private SiteUser author;
 
     public void addAnswer(Answer answer) {
         answer.setQuestion(this);

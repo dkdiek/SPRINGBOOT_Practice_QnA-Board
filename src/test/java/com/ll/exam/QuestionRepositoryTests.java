@@ -22,7 +22,7 @@ class QuestionRepositoryTests {
 
     @Autowired
     private QuestionRepository questionRepository;
-    private static Long lastSampleDataId;
+    private static int lastSampleDataId;
 
     @BeforeEach
     void beforeEach(){
@@ -30,7 +30,7 @@ class QuestionRepositoryTests {
         createSampleData(); // 데이터 만들기
     }
 
-    public static Long createSampleData(QuestionRepository questionRepository) {
+    public static int createSampleData(QuestionRepository questionRepository) {
         Question q1 = new Question();
         q1.setSubject("sbb가 무엇인가요?");
         q1.setContent("sbb에 대해서 알고 싶습니다.");
@@ -104,10 +104,7 @@ class QuestionRepositoryTests {
     @Test
     void findAll() {
         List<Question> all = this.questionRepository.findAll();
-        //Long 수정 전 -- assertThat(all.size()).isEqualTo(lastSampleDataId);
-        assertThat((long) all.size()).isEqualTo(lastSampleDataId);
-
-
+        assertThat(all.size()).isEqualTo(lastSampleDataId);
 
         Question q = all.get(0);
         assertThat(q.getSubject()).isEqualTo("sbb가 무엇인가요?");
@@ -153,7 +150,7 @@ class QuestionRepositoryTests {
     void Pageable(){
 
         // 한 페이지에 몇 개의 아이템이 나와야 하는지 알려주고 현재 몇 페이지인지 알려준다
-        Pageable pageable = PageRequest.of(0, Math.toIntExact(lastSampleDataId));
+        Pageable pageable = PageRequest.of(0, lastSampleDataId);
 
         Page<Question> page = questionRepository.findAll(pageable);
 
