@@ -5,6 +5,7 @@ import com.ll.exam.answer.AnswerRepository;
 import com.ll.exam.question.Question;
 import com.ll.exam.question.QuestionRepository;
 import com.ll.exam.user.SiteUser;
+import com.ll.exam.user.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,9 @@ public class AnswerRepositoryTests {
     @Autowired
     private AnswerRepository answerRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
     @BeforeEach
     @Transactional
     @Rollback(value = false)
@@ -34,14 +38,16 @@ public class AnswerRepositoryTests {
         createSampleData(); // 데이터 만들기
     }
 
-    public static void clearData(AnswerRepository answerRepository, QuestionRepository questionRepository) {
-        QuestionRepositoryTests.clearData(questionRepository);
-        answerRepository.deleteAll();
-        answerRepository.truncateTable();
+    public static void clearData(UserRepository userRepository
+            , AnswerRepository answerRepository
+            , QuestionRepository questionRepository){
+
+        UserServiceTests.clearData(userRepository, answerRepository, questionRepository);
+
     }
 
     private void clearData(){
-        clearData(answerRepository, questionRepository);
+        clearData(userRepository, answerRepository, questionRepository);
     }
 
     private void createSampleData() {

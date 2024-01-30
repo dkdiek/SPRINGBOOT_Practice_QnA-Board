@@ -13,7 +13,7 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
 @SpringBootTest
-class UserServiceTest {
+class UserServiceTests {
     @Autowired
     private UserService userService;
 
@@ -42,11 +42,16 @@ class UserServiceTest {
     }
 
 
-    private void clearData(UserRepository userRepository
+    public static void clearData(UserRepository userRepository
                         , AnswerRepository answerRepository
                         , QuestionRepository questionRepository){
-        AnswerRepositoryTests.clearData(answerRepository, questionRepository);
-        QuestionRepositoryTests.clearData(questionRepository);
+
+        answerRepository.deleteAll();
+        answerRepository.truncateTable();
+
+        questionRepository.deleteAll();
+        questionRepository.truncateTable();
+
         userRepository.deleteAll();
         userRepository.truncateTable();
     }

@@ -1,8 +1,10 @@
 package com.ll.exam;
 
+import com.ll.exam.answer.AnswerRepository;
 import com.ll.exam.question.Question;
 import com.ll.exam.question.QuestionRepository;
 import com.ll.exam.user.SiteUser;
+import com.ll.exam.user.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,11 @@ class QuestionRepositoryTests {
 
     @Autowired
     private QuestionRepository questionRepository;
+    @Autowired
+    private AnswerRepository answerRepository;
+    @Autowired
+    private UserRepository userRepository;
+
     private static int lastSampleDataId;
 
     @BeforeEach
@@ -53,14 +60,18 @@ class QuestionRepositoryTests {
       lastSampleDataId = createSampleData(questionRepository);
     }
 
-    public static void clearData(QuestionRepository questionRepository) {
-        questionRepository.deleteAll(); // delete from question;
-        questionRepository.truncateTable();
+    public static void  clearData(UserRepository userRepository
+            , AnswerRepository answerRepository
+            , QuestionRepository questionRepository){
+
+        UserServiceTests.clearData(userRepository, answerRepository, questionRepository);
+
     }
 
-    private void clearData() {
-        clearData(questionRepository);
+    private void clearData(){
+        clearData(userRepository, answerRepository, questionRepository);
     }
+
 
     @Test
     void 저장() {
