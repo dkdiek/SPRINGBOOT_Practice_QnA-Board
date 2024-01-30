@@ -32,7 +32,12 @@ public class SecurityConfig {
                                 XFrameOptionsHeaderWriter.XFrameOptionsMode.SAMEORIGIN)))
                         .formLogin((formLogin) -> formLogin
                                 .loginPage("/user/login") //시큐리티 로그인 폼을 이 url로 사용
-                                .defaultSuccessUrl("/")); //로그인 성공하고 나면 보낼 페이지
+                                .defaultSuccessUrl("/")) //로그인 성공하고 나면 보낼 페이지
+                        .logout((logout) -> logout
+                                .logoutRequestMatcher(new AntPathRequestMatcher("/user/logout"))
+                                .logoutSuccessUrl("/")
+                                .invalidateHttpSession(true));
+
 
         return http.build();
     }
