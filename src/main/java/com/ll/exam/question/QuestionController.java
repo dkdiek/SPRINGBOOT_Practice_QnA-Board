@@ -3,8 +3,13 @@ package com.ll.exam.question;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -38,32 +43,17 @@ public class QuestionController {
     }
 
     @GetMapping("/create")
-    public String questionCreate(){
+    public String questionCreate(QuestionForm questionForm){
         return "question_form";
     }
 
     @PostMapping("/create")
-    public String questionCreate(Model model, QuestionForm questionForm) {
-        boolean hasError =false;
-
-        if(questionForm.getSubject() == null || questionForm.getSubject().trim().length() == 0){
-            model.addAttribute("subjectErrorMsg","제목이 없습니다");
-            hasError =true;
-            //return "question_form";
-        }
-
-        if(questionForm.getContent() == null || questionForm.getContent().trim().length() == 0){
-            model.addAttribute("contentErrorMsg","내용이 없습니다");
-            hasError =true;
-            //return "question_form";
-        }
-
-        if(hasError){
-            model.addAttribute("questionForm",questionForm);
+    public String questionCreate(@Valid QuestionForm questionForm, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
             return "question_form";
         }
-
-        questionService.create(questionForm.getSubject(), questionForm.getContent());
-        return "redirect:/question/list"; // 질문 저장후 질문목록으로 이동
+        this.questionService.create(questionForm.getSubject(), questionForm.getContent());
+        return "redirect:/question/list";
     }
+
 }
