@@ -1,2 +1,6 @@
-package com.ll.exam.user;public class UserRepository {
+package com.ll.exam.user;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface UserRepository extends JpaRepository<SiteUser, Long> {
 }
