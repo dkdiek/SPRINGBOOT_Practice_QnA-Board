@@ -24,6 +24,7 @@ class UserServiceTests {
     @Autowired
     private AnswerRepository answerRepository;
 
+
     @BeforeEach
     @Transactional
     @Rollback(value = false)
@@ -32,7 +33,7 @@ class UserServiceTests {
         createSampleData(); // 데이터 만들기
     }
 
-    private void createSampleData(UserService userService) {
+    public static void createSampleData(UserService userService) {
         userService.create("admin","admin@test.com","1234");
         userService.create("user1","user1@test.com","1234");
     }
