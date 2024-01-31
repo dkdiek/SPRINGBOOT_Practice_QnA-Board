@@ -5,9 +5,8 @@
 
 <div layout:fragment="content" class="container">
     <h5 class="my-3 border-bottom pb-2">질문등록</h5>
-
-    <!-- 시큐리티로 form에 csrf 토큰(csrf 공격을 막는데 사용, 해당 사이트에서 실행되었는지 구분) 암호화된 value가 생김 -->
-    <form th:action="@{/question/create}" th:object="${questionForm}" method="post">
+    <form th:object="${questionForm}" method="post">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
         <div th:replace="~{form_errors :: formErrorsFragment}"></div>
 
         <div class="mb-3">
