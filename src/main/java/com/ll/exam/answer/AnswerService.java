@@ -1,5 +1,6 @@
 package com.ll.exam.answer;
 
+import com.ll.exam.DataNotFoundException;
 import com.ll.exam.question.Question;
 import com.ll.exam.user.SiteUser;
 import lombok.RequiredArgsConstructor;
@@ -22,4 +23,9 @@ public class AnswerService {
 
             answerRepository.save(answer);
     }
+
+    public Answer getAnswer(Integer id) {
+        return answerRepository.findById(id).orElseThrow(()-> new DataNotFoundException("answer not found"));
+    }
+
 }
