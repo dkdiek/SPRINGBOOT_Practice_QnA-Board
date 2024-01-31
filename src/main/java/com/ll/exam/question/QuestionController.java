@@ -1,6 +1,8 @@
 package com.ll.exam.question;
 
 import com.ll.exam.answer.AnswerForm;
+import com.ll.exam.user.SiteUser;
+import com.ll.exam.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.security.Principal;
 
 @Controller
 @RequiredArgsConstructor// 생성자 주입 final을 자동으로 autowired시킴
@@ -25,6 +28,7 @@ import javax.validation.Valid;
 public class QuestionController {
     //@AutoWired 필드 주입
     private final QuestionService questionService;
+    private final UserService userService;
 
     @GetMapping("/list")
     public String list(HttpSession session, Model model, @RequestParam(defaultValue = "0") int page) {
@@ -50,11 +54,13 @@ public class QuestionController {
     }
 
     @PostMapping("/create")
-    public String questionCreate(@Valid QuestionForm questionForm, BindingResult bindingResult) {
+    public String questionCreate(Principal principal, @Valid QuestionForm questionForm, BindingResult bindingResult) {
+        SiteUser siteUser = userService.getUser(principal.getName());
+
         if (bindingResult.hasErrors()) {
             return "question_form";
         }
-        this.questionService.create(questionForm.getSubject(), questionForm.getContent());
+        this.questionService.create(questionForm.getSubject(), questionForm.getContent(), siteUser);
         return "redirect:/question/list";
     }
 
