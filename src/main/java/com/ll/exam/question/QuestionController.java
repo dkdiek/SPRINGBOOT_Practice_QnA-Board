@@ -5,6 +5,7 @@ import com.ll.exam.user.SiteUser;
 import com.ll.exam.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -48,11 +49,12 @@ public class QuestionController {
         return "question_detail";
     }
 
+    @PreAuthorize("isAuthenticated()") // 실행하기 전에 권한 체크
     @GetMapping("/create")
     public String questionCreate(QuestionForm questionForm){
         return "question_form";
     }
-
+    @PreAuthorize("isAuthenticated()")
     @PostMapping("/create")
     public String questionCreate(Principal principal, @Valid QuestionForm questionForm, BindingResult bindingResult) {
         SiteUser siteUser = userService.getUser(principal.getName());
