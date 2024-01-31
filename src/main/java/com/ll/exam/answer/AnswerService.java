@@ -28,6 +28,12 @@ public class AnswerService {
         return answerRepository.findById(id).orElseThrow(()-> new DataNotFoundException("answer not found"));
     }
 
+    public void modify(Answer answer, String content) {
+        answer.setContent(content);
+        answer.setModifyDate(LocalDateTime.now());
+        this.answerRepository.save(answer);
+    }
+
     public void delete(Answer answer) {
         this.answerRepository.delete(answer);
     }
