@@ -28,4 +28,7 @@ public class AnswerService {
         return answerRepository.findById(id).orElseThrow(()-> new DataNotFoundException("answer not found"));
     }
 
+    public void delete(Answer answer) {
+        this.answerRepository.delete(answer);
+    }
 }
