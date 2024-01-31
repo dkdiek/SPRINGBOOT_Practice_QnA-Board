@@ -1,6 +1,8 @@
 package com.ll.exam.question;
 
 import com.ll.exam.base.RepositoryUtil;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -13,7 +15,9 @@ public interface QuestionRepository extends JpaRepository<Question, Integer>, Re
     Question findByContent(String content);
     Question findBySubjectAndContent(String subject, String content);
 
-    List<Question> findBySubjectLike(String s);
+    List<Question> findBySubjectLike(String subject);
+
+    Page<Question> findBySubjectContains(String kw, Pageable pageable);
 
     //mariadb 쿼리 사용
     @Modifying

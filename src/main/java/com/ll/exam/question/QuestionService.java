@@ -23,13 +23,18 @@ public class QuestionService {
         this.questionRepository = questionRepository;
     }
 
-    public Page<Question> getList(int page) {
+    public Page<Question> getList(String kw, int page) {
         List<Sort.Order> sorts = new ArrayList<>();
         sorts.add(Sort.Order.desc("createDate"));
         sorts.add(Sort.Order.desc("id")); //작성일시가 같으면 다음 id 기준으로 정렬
 
         Pageable pageable = PageRequest.of(page, 10,  Sort.by(sorts));
-        return questionRepository.findAll(pageable);
+
+        if(kw == null || kw.trim().length() == 0){
+            return questionRepository.findAll(pageable);
+        }
+
+        return questionRepository.findBySubjectContains(kw, pageable);
     }
 
     public Question getQuestion(int id) {

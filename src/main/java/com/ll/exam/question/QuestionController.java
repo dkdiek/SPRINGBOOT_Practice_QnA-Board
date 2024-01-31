@@ -13,7 +13,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.security.Principal;
 
@@ -34,11 +33,10 @@ public class QuestionController {
     private final UserService userService;
 
     @GetMapping("/list")
-    public String list(HttpSession session, Model model, @RequestParam(defaultValue = "0") int page) {
-        Object o = session.getAttribute("SPRING_SECURITY_CONTEXT");
-        System.out.println(o);
+    public String list(String kw, Model model, @RequestParam(defaultValue = "0") int page) {
 
-        Page<Question> paging = questionService.getList(page);
+
+        Page<Question> paging = questionService.getList(kw, page);
         model.addAttribute("paging",paging);
         return "question_list";
     }
