@@ -22,7 +22,7 @@ public interface QuestionRepository extends JpaRepository<Question, Integer>, Re
     Page<Question> findBySubjectContainsOrContentContainsOrAuthor_usernameContains(String kw, String kw_, String kw__, Pageable pageable);
     
     //Distinct를 붙이면 중복 제거, 원래는 답변이랑 질문 중복으로 검색 결과 나왔음
-    Page<Question> findDistinctBySubjectContainsOrContentContainsOrAuthor_usernameContainsOrAnswerList_contentContains(String kw, String kw_, String kw__, String kw___, Pageable pageable);
+    Page<Question> findDistinctBySubjectContainsOrContentContainsOrAuthor_usernameContainsOrAnswerList_contentContainsOrAnswerList_Author_usernameContains(String kw, String kw_, String kw__, String kw___, String kw____, Pageable pageable);
 
     //mariadb 쿼리 사용
     @Modifying
