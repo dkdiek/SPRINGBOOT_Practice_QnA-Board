@@ -13,6 +13,8 @@
           integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.min.js"
             integrity="sha512-WW8/jxkELe2CAiE4LvQfwm1rajOS8PHasCCx+knHG0gBHt8EXxS6T6tJRTGuDQVnluuAvMxWF4j8SNFDKceLFg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- Jquery -->
+    <script src ="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <!-- sbb CSS -->
     <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
     <title>Q&A 서비스</title>
@@ -38,6 +40,15 @@
         현재 v5.3.1입니다.
     </div >
 </footer>
+
+<!-- HTML이 전부 로딩 된 후, 실행되어야 하는 녀석 JS코드들은 밑에 두는게 좋다 -->
+<script>
+    $('select[value]').each((index, node)=> {
+        const $select = $(node);
+        const value = $select.attr("value");
+        $select.find(`option[value='${value}']`).prop("selected", true);
+    });
+</script>
 
 </body>
 </html>

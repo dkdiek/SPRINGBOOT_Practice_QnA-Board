@@ -12,8 +12,12 @@
             <a th:href="@{/question/create}" class="btn btn-primary">질문 등록하기</a>
         </div>
         <div class="col-6">
-            <form class="input-group" action="">
+            <form class="input-group">
                 <input class="form-control" type="text" name="kw" placeholder="검색어를 입력해 주세요." th:value="${param.kw}">
+                <select class="form-select" name="sortCode" th:value="${param.sortCode}">
+                    <option value="NEW">최신순</option>
+                    <option value="OLD">오래된순</option>
+                </select>
                 <button class="btn btn-outline-secondary" type="submit">검색</button>
             </form>
         </div>
@@ -35,7 +39,7 @@
             </thead>
             <tbody>
             <tr th:each="question, loop : ${paging}">
-                <td th:text="${paging.getTotalElements - (paging.number * paging.size) - loop.index}"></td>
+                <td th:text="${question.id}"></td>
 
                 <td class="text-start">
                     <a th:href="@{|/question/detail/${question.id}|}" th:text="${question.subject}"></a>
